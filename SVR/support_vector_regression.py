@@ -26,7 +26,6 @@ from sklearn.svm import SVR
 regressor = SVR(kernel='rbf')
 regressor.fit(X,y)
 
-
 # Predicting a new result with SVR
 y_pred = sc_y.inverse_transform( regressor.predict(sc_X.transform(np.array([[6.5]]))))
 
