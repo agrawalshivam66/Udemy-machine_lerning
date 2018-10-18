@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Oct 18 16:13:48 2018
+Created on Thu Oct 18 17:02:10 2018
 
 @author: Shivam-PC
 """
@@ -14,6 +14,7 @@ dataset = pd.read_csv("Social_network_Ads.csv")
 X = dataset.iloc[:, [2,3]].values
 y = dataset.iloc[:, 4].values
 
+
 #spitting the dataset into training set and text set
 from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split( X , y, test_size=0.2, random_state=0)
@@ -24,10 +25,11 @@ sc_X=StandardScaler()
 X_train=sc_X.fit_transform(X_train)
 X_test=sc_X.transform(X_test)
 
-# Fitting K nearest neighbour to training set
-from sklearn.neighbors import KNeighborsClassifier
-classifier = KNeighborsClassifier(n_neighbors=5, metric = 'minkowski', p=2)
+# Fitting SVM to training set
+from sklearn.svm import SVC
+classifier = SVC(kernel = 'linear', random_state = 0)
 classifier.fit(X_train, y_train)
+
 
 # predicting the results
 y_pred = classifier.predict(X_test)
@@ -48,7 +50,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('K-NN Classifier (Training set)')
+plt.title('SVM Classifier (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
@@ -66,16 +68,8 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('K-NN Classifier (Test set)')
+plt.title('SVM Classifier (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
-
-
-
-
- 
-
-
-
 
