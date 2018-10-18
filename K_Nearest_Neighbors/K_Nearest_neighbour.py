@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Oct 18 15:23:00 2018
+Created on Thu Oct 18 16:13:48 2018
 
 @author: Shivam-PC
 """
+
 # importing 
 import pandas as pd
 import numpy as np
@@ -12,7 +13,6 @@ import matplotlib.pyplot as plt
 dataset = pd.read_csv("Social_network_Ads.csv")
 X = dataset.iloc[:, [2,3]].values
 y = dataset.iloc[:, 4].values
-
 
 #spitting the dataset into training set and text set
 from sklearn.cross_validation import train_test_split
@@ -24,9 +24,9 @@ sc_X=StandardScaler()
 X_train=sc_X.fit_transform(X_train)
 X_test=sc_X.transform(X_test)
 
-# Fitting Logistic regression to training set
-from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression(random_state = 0)
+# Fitting K nearest neighbour to training set
+from sklearn.neighbors import KNeighborsClassifier
+classifier = KNeighborsClassifier(n_neighbors=5, metric = 'minkowski', p=2)
 classifier.fit(X_train, y_train)
 
 # predicting the results
@@ -48,7 +48,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Classifier (Training set)')
+plt.title('K-NN Classifier (Training set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
@@ -66,7 +66,7 @@ plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
     plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                 c = ListedColormap(('red', 'green'))(i), label = j)
-plt.title('Logistic regression Classifier (Test set)')
+plt.title('Classifier (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
