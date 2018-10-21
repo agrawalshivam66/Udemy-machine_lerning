@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Oct 21 14:34:57 2018
+Created on Sun Oct 21 15:57:03 2018
 
 @author: Shivam-PC
 """
@@ -42,6 +42,21 @@ accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, c
 accuracies.mean()
 accuracies.std()
 
+# Applying Grid Search to find the best model and the best parameter
+from sklearn.model_selection import GridSearchCV
+
+parameters = [{'C':[1, 10, 100, 1000], 'kernel':['linear']},
+              {'C':[1, 10, 100, 1000],'kernel':['rbf'], 'gamma': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]}]
+
+grid_search = GridSearchCV(estimator = classifier, 
+                           param_grid = parameters,
+                           scoring = 'accuracy',
+                           cv = 10) #for higher CPU use n_jobs=-1
+
+grid_search = grid_search.fit(X_train, y_train)
+best_accuracy = grid_search.best_score_
+best_parameters = grid_search.best_params_
+
 # Visualising the Training set results
 from matplotlib.colors import ListedColormap
 X_set, y_set = X_train, y_train
@@ -77,4 +92,3 @@ plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
 plt.show()
-
