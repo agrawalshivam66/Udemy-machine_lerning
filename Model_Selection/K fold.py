@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Oct 18 19:35:52 2018
+Created on Sun Oct 21 14:34:57 2018
 
 @author: Shivam-PC
 """
@@ -29,13 +29,16 @@ from sklearn.svm import SVC
 classifier = SVC(kernel = 'rbf', random_state = 0)
 classifier.fit(X_train, y_train)
 
-
 # predicting the results
 y_pred = classifier.predict(X_test)
 
 # Making the confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+# Applying K-Fold Cross Validation
+from sklearn.model_selection import cross_val_score
+accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)#cv is number of folds
 
 # Visualising the Training set results
 from matplotlib.colors import ListedColormap
@@ -72,3 +75,4 @@ plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
 plt.show()
+
