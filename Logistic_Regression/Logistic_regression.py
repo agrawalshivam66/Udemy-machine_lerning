@@ -70,7 +70,7 @@ plt.title('Logistic regression Classifier (Test set)')
 plt.xlabel('Age')
 plt.ylabel('Estimated Salary')
 plt.legend()
-
+plt.show()
 
 
 
