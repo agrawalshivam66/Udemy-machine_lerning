@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 23 15:25:39 2018
+# Upper Confidence Bound
 
-@author: Shivam-PC
-"""
-# importing
+# Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -44,3 +40,4 @@ plt.hist(ads_selected)
 plt.title('Histogram of ads selections')
 plt.xlabel('Ads')
 plt.ylabel('Number of times each ad was selected')
+plt.show()
